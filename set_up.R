@@ -16,8 +16,8 @@ df = read.csv("APSC200 value rubric data 2015.csv", header = TRUE) # 2nd year ma
 df <- df[ , -grep("Change", colnames(df))] #remove change columns
 
 # average bailey and alyssa's scores
-bailey_scores <- df %>% select (Section, Group, Discipline, PS1.1:WC5.1)
-alyssa_scores <- df %>% select (Section, Group, Discipline, PS1.2:WC5.2)
+bailey_scores <- df %>% select (Discipline, PS1.1:WC5.1)
+alyssa_scores <- df %>% select (Discipline, PS1.2:WC5.2)
 colnames(alyssa_scores) <- colnames(bailey_scores) #change column names for row bind
 
 df <- bind_rows(bailey_scores, alyssa_scores) # dataframe now has two rows per data point for the separate markers
@@ -59,21 +59,26 @@ mthe <- df %>% subset(Discipline == "MTHE")
 n_mthe <- nrow(mthe)/2 #divide by two because the two rater scores are separate rows
 mthe <- mthe %>% summarise_each(funs(mean(., na.rm = TRUE))) %>% mutate(Discipline = paste0("MTHE\nn = ", n_mthe))
 
-all_means <- bind_rows(mech, ece, civl, chee, mine, geoe, enph, mthe, all_eng) %>% select(-Group, -Section)
+all_means <- bind_rows(mech, ece, civl, chee, mine, geoe, enph, mthe, all_eng)
 
 ps <- all_means %>% 
   select(Discipline, PS1.1, PS2.1, PS3.1, PS4.1, PS5.1,PS6.1) %>% 
   transmute(Discipline, score = rowMeans( .[, -1] , na.rm = TRUE)) %>% # average all rows, except the first column(discipline)
   arrange(score)
 
+ps$ordering <- factor(ps$Discipline, as.character(ps$Discipline))
+
 ct <- all_means %>% 
   select(Discipline, CT1.1, CT2.1, CT3.1, CT4.1, CT5.1) %>% 
   transmute(Discipline, score = rowMeans( .[, -1] , na.rm = TRUE)) %>% #average rows
   arrange(score)
 
+ct$ordering <- factor(ct$Discipline, as.character(ct$Discipline))
+
 wc <- all_means %>% 
   select(Discipline, WC1.1, WC2.1, WC3.1, WC4.1, WC5.1) %>% 
-  transmute(Discipline, score = rowMeans( .[, -1] , na.rm = TRUE)) %>% #average rows
+  transmute(Discipline, score = rowMeans( .[, -1] , na.rm = TRUE))  %>% #average rows
   arrange(score)
-
+  
+wc$ordering <- factor(wc$Discipline, as.character(wc$Discipline))
 
