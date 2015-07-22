@@ -3,30 +3,30 @@
 
 source("set_up.R")
 
-# Chooses:
+# Choose:
 value_scores <- ps
 graph_title <- "Average Problem Solving VALUE Scores"
-palette_colour <- "Greens"
+main_colour <- "#33CC44"
 
 value_scores <- ct
 graph_title <- "Average Critical Thinking VALUE Scores"
-palette_colour <- "Blues"
+main_colour <- "#3388EE" 
 
 value_scores <- wc
 graph_title <- "Average Written Communication VALUE Scores"
-palette_colour <- "Oranges"
+main_colour <- "#FF8833"
 
 
 ## plot
 ggplot(
   data = value_scores, 
   aes(
-    x = Discipline, y = score   #, fill = Discipline
+    x = Discipline, y = score  #, fill = Discipline
     )
   )+
   geom_bar(
-    stat = "identity",
-    position = "dodge"
+    stat = "identity", 
+    fill = main_colour
     ) + 
   coord_cartesian(ylim = c(0, 4)) +  
   theme(
@@ -35,8 +35,6 @@ ggplot(
     panel.background = element_rect("white"), #change background colour
     panel.grid.major.x = element_blank()
     ) +
-  labs(title = graph_title,  x = "Discipline", y = "Average Rubric Level")
+  labs(title = graph_title,  x = "Discipline", y = "Average Rubric Level") 
 
-#+
- # scale_fill_brewer(palette = palette_colour)
 
