@@ -7,15 +7,21 @@ source("set_up.R")
 value_scores <- ps
 graph_title <- "Average Problem Solving VALUE Scores"
 main_colour <- "#33CC44" #green
+highlight <- "#1F7A29"
+cols <- c(main_colour, main_colour, main_colour, main_colour, main_colour,main_colour, main_colour, highlight)
+
 
 value_scores <- ct
 graph_title <- "Average Critical Thinking VALUE Scores"
 main_colour <- "#3388EE"  #blue
-cols <- c(main_colour, main_colour, main_colour, "red", main_colour, main_colour, main_colour,main_colour, main_colour)
+highlight <- "#1F528F"
+cols <- c(main_colour, main_colour, main_colour, main_colour, main_colour, main_colour,main_colour, main_colour, highlight)
 
 value_scores <- wc
 graph_title <- "Average Written Communication VALUE Scores"
 main_colour <- "#FF8833" #orange
+highlight <- "#CC5200"
+cols <- c(main_colour, main_colour, main_colour, main_colour, main_colour, main_colour,main_colour, main_colour, highlight)
 
 
 ## plot
@@ -33,7 +39,8 @@ ggplot(
     axis.line = element_line("grey"), #change colour of x and y axis
     panel.grid.major.y = element_line("grey"), #change horizonatal line colour (from white)
     panel.background = element_rect("white"), #change background colour
-    panel.grid.major.x = element_blank()
+    panel.grid.major.x = element_blank(),
+    legend.position="none" #remove legend
     ) +
   labs(title = graph_title,  x = "Discipline", y = "Average Rubric Level") +
   scale_fill_manual(
