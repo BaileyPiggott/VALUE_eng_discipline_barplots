@@ -64,7 +64,8 @@ all_means <- bind_rows(mech, ece, civl, chee, mine, geoe, enph, mthe, all_eng)
 ps <- all_means %>% 
   select(Discipline, PS1.1, PS2.1, PS3.1, PS4.1, PS5.1,PS6.1) %>% 
   transmute(Discipline, score = rowMeans( .[, -1] , na.rm = TRUE)) %>% # average all rows, except the first column(discipline)
-  arrange(score)
+  arrange(score) %>% 
+  filter(score > 0) # no chee score for problem solving
 
 ps$ordering <- factor(ps$Discipline, as.character(ps$Discipline))
 
