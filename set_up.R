@@ -59,7 +59,7 @@ mthe <- df %>% subset(Discipline == "MTHE")
 n_mthe <- nrow(mthe)/2 #divide by two because the two rater scores are separate rows
 mthe <- mthe %>% summarise_each(funs(mean(., na.rm = TRUE))) %>% mutate(Discipline = paste0("MTHE\nn = ", n_mthe))
 
-all_means <- bind_rows(mech, ece, civl, chee, mine, geoe, enph, mthe, all_eng)
+all_means <- bind_rows(mech, ece, civl, chee, mine, geoe, enph, mthe)
 
 ps <- all_means %>% 
   select(Discipline, PS1.1, PS2.1, PS3.1, PS4.1, PS5.1,PS6.1) %>% 
