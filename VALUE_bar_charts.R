@@ -5,21 +5,21 @@ source("set_up.R")
 
 # Choose-----------------------------------------------
 value_scores <- ps
-all_eng_avg <- 2.38616
+all_eng_avg <- all_eng_ps
 graph_title <- "Average Problem Solving VALUE Scores"
 main_colour <- "#33CC44" #green
 highlight <- "#1F7A29" # darker green for total bar
 #cols <- c(main_colour, main_colour, main_colour, main_colour, main_colour,main_colour, main_colour, highlight)
 
 value_scores <- ct
-all_eng_avg <- 2.314516
+all_eng_avg <- all_eng_ct
 graph_title <- "Average Critical Thinking VALUE Scores"
 main_colour <- "#3388EE"  #blue
 highlight <- "#1F528F" #darker blue
 #cols <- c(main_colour, main_colour, main_colour, main_colour, main_colour, main_colour,main_colour, main_colour, highlight)
 
 value_scores <- wc
-all_eng_avg <- 2.453226
+all_eng_avg <- all_eng_wc
 graph_title <- "Average Written Communication VALUE Scores"
 main_colour <- "#FF8833" #orange
 highlight <- "#CC5200" #darker orange
