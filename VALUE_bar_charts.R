@@ -24,7 +24,7 @@ main_colour <- "#FF8833" #orange
 highlight <- "#CC5200" #darker orange
 #cols <- c(main_colour, main_colour, main_colour, main_colour, main_colour, main_colour,main_colour, main_colour, highlight)
 
-## plot --------------------------------------------
+# plot --------------------------------------------
 ggplot(
   data = value_scores, 
   aes(x = ordering, y = score , fill = Discipline) # x value is the factor column so bars plot in ascending order
@@ -68,10 +68,11 @@ wc_facet <- wc %>% mutate(learning_outcome = "Written Comm.")
 
 facet_scores <- rbind(ps_facet, ct_facet, wc_facet)
 
-hline_avg <- data.frame(
-  avg = c(all_eng_ct, all_eng_ps, all_eng_wc),
-  learning_outcome = c("Critical Thinking", "Problem Solving", "Written Comm.")
-  ) #data frame to plot outcome average in each facet
+eng_averages <- data.frame( #data frame to plot outcome average in each facet
+  avg = c(all_eng_ct, all_eng_ps, all_eng_wc), # 2nd year eng averages
+  learning_outcome = c("Critical Thinking", "Problem Solving", "Written Comm."), # facet to plot in 
+  avg_label = "Eng. Avg." # label for average line is same for all three plots
+  ) 
 
 #facet plot -----------------------------
 
@@ -80,25 +81,30 @@ ggplot(
   aes(x = Discipline, y = score, fill = learning_outcome) 
   )+
   facet_grid(learning_outcome~.) +
-  geom_hline(data = hline_avg, aes(yintercept = avg, colour = learning_outcome), 
+  geom_hline(data = eng_averages, aes(yintercept = avg, colour = learning_outcome), 
     size = 1,
     linetype = 'dashed'  
     ) +
   geom_bar(stat = "identity", width = 0.5) + 
+  geom_text(
+    data = eng_averages,
+    aes(x = 0.5, y = avg + 0.3, label = avg_label,
+        colour = learning_outcome, size = 4, fontface = "bold", hjust = 0)
+    ) +
   coord_cartesian(ylim = c(0, 4)) +  
   theme(
     axis.line = element_line("grey"), #change colour of x and y axis
     panel.grid.major.y = element_line("grey"), #change horizonatal line colour (from white)
     panel.background = element_rect("white"), #change background colour
     panel.grid.major.x = element_blank(), #remove vertical white lines
-    panel.margin = unit(0.6, "lines"), # increase space between facet plots
+    panel.margin = unit(0.7, "lines"), # increase space between facet plots
     legend.position = "none", # remove legend
     plot.title = element_text(size = 15),
     axis.title = element_text(size = 14),
     axis.text = element_text(size = 12), #size of x axis labels
     strip.text = element_text(size = 12, face = "bold") # size and font of facet labels
     ) +
-  labs(title = graph_title,  x = "Engineering Discipline", y = "Average Rubric Level") +
+  labs(title = "Average Engineering VALUE Scores, by discipline",  x = "Engineering Discipline", y = "Average Rubric Level\n") +
   scale_fill_manual(
     values = c("#3388ee", "#33cc44", "#ff8833")
     ) +
