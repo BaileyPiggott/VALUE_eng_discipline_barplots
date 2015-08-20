@@ -11,7 +11,7 @@ criteria <- c("Define\nProblem", "Identify\nStrategies", "Propose\nSolutions", "
 eng_totals <- eng_totals %>% 
   select(-Discipline) %>% 
   gather(learning_outcome, mean, PS1.1:WC5.1) %>%
-  cbind(value) # add column defining type of VALUE criteria (ps or ct or wc)
+  cbind(value, stnd_dev) # add column defining type of VALUE criteria (ps or ct or wc) and calculated sd
 
 
 
@@ -21,6 +21,7 @@ ggplot(
   aes(x = learning_outcome, y = mean, fill = value) # x value is the factor column so bars plot in ascending order
   )+
   geom_bar(stat = "identity", width = 0.5) + 
+  geom_errorbar(aes(ymin=mean - sd, ymax = mean + sd), width=0.25) +
   scale_x_discrete(labels = criteria) +
   coord_cartesian(ylim = c(0, 4)) +  
   theme(
@@ -35,14 +36,15 @@ ggplot(
     axis.text.y = element_text(size = 12)
     #axis.text.x = element_text(size = 12)#size of x axis labels
     ) +
-  labs(title = "VALUE Scores",  x = "VALUE Criteria", y = "Average Rubric Level") +
+  labs(title = "Engineering VALUE Scores, with Standard Deviations",  x = "VALUE Criteria", y = "Average Rubric Level") +
   scale_fill_manual(values = c("#33CC44", "#3388EE", "#FF8833")) +
   annotate( # add labels for CLA mastery levels
     "text", 
     fontface = "bold", 
     size = 5,
-    x = c(3.5, 9, 14), y = 3.5, 
-    label = c("Problem\nSolving", "Critical\nThinking", "Written\nCommunication"), 
+    x = c(3.5, 9, 14), y = 3.55, 
+    vjust = 0,
+    label = c("Problem Solving", "Critical Thinking", "Written Communication"), 
     colour = c("#33CC44", "#3388EE", "#FF8833")
   ) 
 

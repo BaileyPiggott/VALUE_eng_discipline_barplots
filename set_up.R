@@ -23,6 +23,14 @@ colnames(alyssa_scores) <- colnames(bailey_scores) #change column names for row 
 
 df <- bind_rows(bailey_scores, alyssa_scores) # dataframe now has two rows per data point for the separate markers
 
+stnd_dev <- data.frame( # standard deviations of VALUE data
+  learning_outcome = c("PS1.1", "PS2.1", "PS3.1", "PS4.1", "PS5.1", "PS6.1", "CT1.1", "CT2.1", "CT3.1", "CT4.1", "CT5.1", "WC1.1", "WC2.1", "WC3.1", "WC4.1", "WC5.1"),
+  sd = c(sd(df$PS1.1, na.rm = TRUE), sd(df$PS2.1, na.rm = TRUE), sd(df$PS3.1, na.rm = TRUE), sd(df$PS4.1, na.rm = TRUE), sd(df$PS5.1, na.rm = TRUE), sd(df$PS6.1, na.rm = TRUE), 
+           sd(df$CT1.1, na.rm = TRUE), sd(df$CT2.1, na.rm = TRUE), sd(df$CT3.1, na.rm = TRUE), sd(df$CT4.1, na.rm = TRUE), sd(df$CT5.1, na.rm = TRUE),
+           sd(df$WC1.1, na.rm = TRUE), sd(df$WC2.1, na.rm = TRUE), sd(df$WC3.1, na.rm = TRUE), sd(df$WC4.1, na.rm = TRUE), sd(df$WC5.1, na.rm = TRUE)
+    )
+  )
+
 #subset by discipline ---------------------------
 all_eng <- df %>% subset(Discipline != "CHEE")  # take out chem scores
 n_eng <- nrow(all_eng)/2
