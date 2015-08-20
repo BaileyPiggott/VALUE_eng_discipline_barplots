@@ -1,5 +1,7 @@
 
 # bar chart with all VALUE criteria
+source("set_up.R")
+
 
 eng_totals <- all_eng[c("Discipline", "PS1.1", "PS2.1", "PS3.1", "PS4.1", "PS5.1", "PS6.1", "CT1.1", "CT2.1", "CT3.1", "CT4.1", "CT5.1", "WC1.1", "WC2.1", "WC3.1", "WC4.1", "WC5.1")]
 value <- c("a","a","a","a","a","a","b","b","b","b","b","c","c","c","c","c")
@@ -29,9 +31,11 @@ ggplot(
     legend.position="none", #remove legend
     plot.title = element_text(size = 15),
     axis.title = element_text(size = 14),
-    axis.text = element_text(size = 12, angle = 90) #size of x axis labels
+    axis.ticks.x = element_blank(),
+    axis.text.y = element_text(size = 12)
+    #axis.text.x = element_text(size = 12)#size of x axis labels
     ) +
-  labs(title = graph_title,  x = "VALUE Criteria", y = "Average Rubric Level") +
+  labs(title = "VALUE Scores",  x = "VALUE Criteria", y = "Average Rubric Level") +
   scale_fill_manual(values = c("#33CC44", "#3388EE", "#FF8833")) +
   annotate( # add labels for CLA mastery levels
     "text", 

@@ -2,7 +2,7 @@
 
 source("set_up.R")
 
-# Choose-----------------------------------------------
+# Choose VALUE criteria to plot-----------------------------------------------
 value_scores <- ps
 all_eng_avg <- all_eng_ps
 graph_title <- "Average Problem Solving VALUE Scores"
@@ -24,7 +24,7 @@ main_colour <- "#FF8833" #orange
 highlight <- "#CC5200" #darker orange
 #cols <- c(main_colour, main_colour, main_colour, main_colour, main_colour, main_colour,main_colour, main_colour, highlight)
 
-# plot --------------------------------------------
+# plot single VALUE criteria--------------------------------------------
 ggplot(
   data = value_scores, 
   aes(x = ordering, y = score , fill = Discipline) # x value is the factor column so bars plot in ascending order
@@ -88,7 +88,7 @@ ggplot(
   geom_bar(stat = "identity", width = 0.5) + 
   geom_text(
     data = eng_averages,
-    aes(x = 0.5, y = avg + 0.3, label = avg_label,
+    aes(x = 0.5, y = avg + 0.3, label = avg_label, # label for eng average
         colour = learning_outcome, size = 4, fontface = "bold", hjust = 0)
     ) +
   coord_cartesian(ylim = c(0, 4)) +  
